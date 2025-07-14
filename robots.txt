@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://saili.github.io/sitemap.xml
+Sitemap: https://saili-uds.github.io/sitemap.xml

@@ -117,6 +117,30 @@ def convert_to_bibtex_entry(pub):
              str(bib.get("publisher", "")).strip() or
              str(bib.get("conference", "")).strip())
     
+    # If still no venue, try to extract from citation string
+    if not venue:
+        citation = pub.get("bib", {}).get("citation", "")
+        if citation:
+            venue = str(citation).strip()
+    
+    # If still no venue, check if URL contains conference/journal info
+    if not venue:
+        url = str(pub.get("pub_url", "")).strip()
+        if "arxiv.org" in url.lower():
+            venue = "arXiv preprint"
+        elif "aclanthology.org" in url.lower():
+            venue = "ACL Anthology"
+        elif "springer.com" in url.lower():
+            venue = "Springer"
+        elif "ieeexplore.ieee.org" in url.lower():
+            venue = "IEEE"
+        elif "philpapers.org" in url.lower():
+            venue = "PhilPapers"
+        elif "scholaris.ca" in url.lower() or "papyrus" in url.lower():
+            venue = "Master's Thesis"
+        elif "era.library" in url.lower():
+            venue = "PhD Thesis"
+    
     url = str(pub.get("pub_url", "")).strip()
 
     # Skip entries without essential information

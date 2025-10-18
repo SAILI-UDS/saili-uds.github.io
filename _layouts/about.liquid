@@ -2,7 +2,14 @@
 layout: default
 ---
 <div class="post">
-  <header class="post-header">
+  <div class="post-header" style="position: relative;">
+    <!-- Logo Section -->
+    {% if site.icon and site.icon != "⚛️" %}
+    <div style="position: absolute; left: -200px; top: 0;">
+      <img src="{{ '/assets/img/' | append: site.icon | relative_url }}" alt="logo" style="width: 150px; height: auto;">
+    </div>
+    {% endif %}
+
     <h1 class="post-title">
       {% if site.title == 'blank' %}
         <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
@@ -38,11 +45,11 @@ layout: default
       </div>
     {% endif %}
 
-    <div class="clearfix">{{ content }}</div>
+        <div class="clearfix">{{ content }}</div>
 
-    <!-- News -->
-    {% if page.announcements and page.announcements.enabled %}
-      <h2>
+        <!-- News -->
+        {% if page.announcements and page.announcements.enabled %}
+          <h2>
         <a href="{{ '/news/' | relative_url }}" style="color: inherit">news</a>
       </h2>
       {% include news.liquid limit=true %}
